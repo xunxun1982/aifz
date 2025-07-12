@@ -1,0 +1,32 @@
+# =============================================================================
+# AI病历分析系统 - Docker Compose 配置
+# =============================================================================
+
+version: '3.9'
+
+services:
+  aifz_service:
+    # 构建配置
+    build: .                          # 使用当前目录的Dockerfile
+    image: aifz_service:latest        # 镜像名称
+    container_name: aifz_service      # 容器名称
+    
+    # 重启策略：实现24x7不间断运行
+    restart: on-failure
+    
+    # 高级重启策略配置
+    deploy:
+      restart_policy:
+        condition: on-failure         # 仅在异常退出时重启
+        delay: 30s                   # 重启间隔
+        max_attempts: 5              # 最大重试次数
+        window: 120s                 # 评估窗口期
+        
+    # 数据卷挂载：实现数据持久化和配置外部化
+    volumes:
+      - ./logs:/app/logs             # 日志目录挂载
+      - ./config.ini:/app/config.ini # 配置文件挂载
+
+    # 环境变量配置
+    environment:
+      - TZ=Asia/Shanghai             # 设置时区为北京时间

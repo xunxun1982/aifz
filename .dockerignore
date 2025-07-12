@@ -1,0 +1,17 @@
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/*.pyd
+.pytest_cache
+.venv
+.git
+.gitignore
+.idea
+.vscode
+logs
+*.spec
+注意.txt
+test.txt
+test_combined.py
+.specstory
+.cursorindexingignore 
